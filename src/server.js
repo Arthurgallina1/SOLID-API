@@ -2,7 +2,7 @@ const express = require("express");
 const dotEnv = require("dotenv");
 const cors = require("cors");
 const dbConnection = require("./database/connection");
-
+const routes = require("./routes/productRoutes");
 dotEnv.config();
 
 const app = express();
@@ -12,6 +12,9 @@ dbConnection();
 
 app.use(express.json());
 app.use(cors());
+
+//app level middleware
+app.use("/api/v1/product", routes);
 
 const customMiddleware = (req, res, next) => {
     console.log("HEy middlewares");
@@ -29,8 +32,8 @@ app.use(function (err, req, res, next) {
     });
 });
 
-app.get("/", customMiddleware, (req, res, next) => {
-    res.send("hello ");
-});
+// app.get("/", customMiddleware, (req, res, next) => {
+//     res.send("hello ");
+// });
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
