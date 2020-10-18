@@ -4,6 +4,11 @@ const cors = require("cors");
 const dbConnection = require("./database/connection");
 const productRoutes = require("./routes/productRoutes");
 const userRoutes = require("./routes/userRoutes");
+const swaggerUi = require("swagger-ui-express");
+const YAML = require("yamljs");
+
+const swaggerDocument = YAML.load("./swagger.yaml");
+
 dotEnv.config();
 
 const app = express();
@@ -23,7 +28,6 @@ const customMiddleware = (req, res, next) => {
     next();
 };
 // app.use(customMiddleware);
-
 //error handler middleware
 app.use(function (err, req, res, next) {
     console.error(err.stack);
@@ -33,6 +37,11 @@ app.use(function (err, req, res, next) {
         body: {},
     });
 });
+
+//api documentation
+if (process.env.NODE_ENV !== "production") {
+    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+}
 
 // app.get("/", customMiddleware, (req, res, next) => {
 //     res.send("hello ");

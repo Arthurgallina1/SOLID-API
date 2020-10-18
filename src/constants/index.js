@@ -19,6 +19,7 @@ module.exports = {
     },
     requestValidationMessage: {
         BAD_REQUEST: "Invalid fields",
+        TOKEN_MISSING: "Permission denied",
     },
     databaseMessage: {
         INVALID_ID: "Invalid ID",
