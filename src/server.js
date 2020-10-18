@@ -2,7 +2,8 @@ const express = require("express");
 const dotEnv = require("dotenv");
 const cors = require("cors");
 const dbConnection = require("./database/connection");
-const routes = require("./routes/productRoutes");
+const productRoutes = require("./routes/productRoutes");
+const userRoutes = require("./routes/userRoutes");
 dotEnv.config();
 
 const app = express();
@@ -14,7 +15,8 @@ app.use(express.json());
 app.use(cors());
 
 //app level middleware
-app.use("/api/v1/product", routes);
+app.use("/api/v1/product", productRoutes);
+app.use("/api/v1/user", userRoutes);
 
 const customMiddleware = (req, res, next) => {
     console.log("HEy middlewares");

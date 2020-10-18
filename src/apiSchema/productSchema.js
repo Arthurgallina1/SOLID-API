@@ -5,3 +5,14 @@ module.exports.createProductSchema = Joi.object().keys({
     brand: Joi.string().required(),
     price: Joi.number().required(),
 });
+
+module.exports.getAllProductSchema = Joi.object().keys({
+    skip: Joi.string().required(),
+    limit: Joi.string(),
+});
+
+module.exports.updateProductSchema = Joi.object().keys({
+    name: Joi.string(),
+    brand: Joi.string(),
+    price: Joi.number(),
+});
